@@ -23,7 +23,7 @@ func (m MagnumAPI) Run() {
 
 func main() {
 	m := MagnumAPI{
-		URL: "http://10.50.0.4:8765",
+		URL: "http://magnum.jspc.pw",
 	}
 
 	server := loadtest.NewServer(m)
