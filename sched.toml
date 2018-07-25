@@ -1,0 +1,5 @@
+type = "job"
+[schema]
+  name = "jspc_magnum"
+  duration = 1800
+  users = 150
