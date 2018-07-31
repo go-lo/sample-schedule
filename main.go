@@ -3,30 +3,30 @@ package main
 import (
 	"net/http"
 
-	"github.com/jspc/loadtest"
+	"github.com/go-lo/go-lo"
 )
 
-type MagnumAPI struct {
+type API struct {
 	URL string
 }
 
-func (m MagnumAPI) Run() {
+func (m API) Run() {
 	req, err := http.NewRequest("GET", m.URL, nil)
 	if err != nil {
 		panic(err)
 	}
 
-	seq := loadtest.NewSequenceID()
+	seq := golo.NewSequenceID()
 
-	loadtest.DoRequest(seq, req)
+	golo.DoRequest(seq, req)
 }
 
 func main() {
-	m := MagnumAPI{
-		URL: "http://magnum.jspc.pw",
+	m := API{
+		URL: "http://localhost:8765",
 	}
 
-	server := loadtest.NewServer(m)
+	server := golo.New(m)
 
-	panic(loadtest.StartListener(server))
+	panic(golo.Start(server))
 }

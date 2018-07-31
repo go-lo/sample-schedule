@@ -1,5 +1,5 @@
 type = "job"
 [schema]
   name = "jspc_magnum"
-  duration = 1800
-  users = 150
+  duration = 30
+  users = 10
