@@ -3,27 +3,36 @@ package main
 import (
 	"net/http"
 
+	client "github.com/go-lo/fasthttp-client"
 	"github.com/go-lo/go-lo"
 )
 
+var (
+	endpoint = "http://localhost"
+)
+
 type API struct {
-	URL string
+	req *http.Request
 }
 
-func (m API) Run() {
-	req, err := http.NewRequest("GET", m.URL, nil)
-	if err != nil {
-		panic(err)
-	}
+func NewAPI(url string) (a API, err error) {
+	a.req, err = http.NewRequest("GET", url, nil)
 
+	return
+}
+
+func (a API) Run() {
 	seq := golo.NewSequenceID()
 
-	golo.DoRequest(seq, req)
+	golo.DoRequest(seq, a.req)
 }
 
 func main() {
-	m := API{
-		URL: "http://localhost:8765",
+	golo.Client = client.New()
+
+	m, err := NewAPI(endpoint)
+	if err != nil {
+		panic(err)
 	}
 
 	server := golo.New(m)

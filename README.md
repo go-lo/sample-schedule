@@ -9,14 +9,14 @@ You will need:
  1. [`golo-cli`](github.com/go-lo/golo-cli) installed and running
  1. The golang compiler/ ecosystem from your package manager or [from here](https://golang.org/dl/)
  1. This repo
-
+ 1. Some service you want to loadtest
 
 ## Compiling the schedule
 
 The simplest compilation is:
 
 ```bash
-$ CGO_ENABLED=0 go build -o schedule
+$ CGO_ENABLED=0 go build -ldflags "-X 'main.endpoint=https://example.com'" -o schedule
 ```
 
 This will statically compile any dependant libraries into the binary- this will help ensure your schedule can run on remote hosts without having to install extra libraries.
@@ -24,9 +24,10 @@ This will statically compile any dependant libraries into the binary- this will 
 If, however, you're on a non-linux machine **and you're running go-lo with docker or remotely on linux** you will need to do:
 
 ```bash
-$ CGO_ENABLED=0 GOOS=linux go build -o schedule
+$ CGO_ENABLED=0 GOOS=linux go build -ldflags "-X 'main.endpoint=https://example.com'" -o schedule
 ```
 
+Note the addition of `GOOS=linux`.
 
 ## Starting the schedule
 
